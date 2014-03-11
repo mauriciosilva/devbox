@@ -14,7 +14,7 @@ execute "install go" do
   ## echo command must be done manually?
   command <<-EOF
     tar -C /usr/local -xzf go1.2.linux-amd64.tar.gz
-    echo "'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile"
+    echo "'export PATH=$PATH:/usr/local/go/bin' >> /home/vagrant/.profile"
   EOF
 
   not_if { ::File.exists?(go_binary) }
