@@ -1,3 +1,5 @@
+include_recipe 'git'
+
 node.set[:app_name][:git_repository] = "https://github.com/creationix/nvm.git"
 node.set[:app_name][:git_revision] = "master"
 
@@ -9,7 +11,7 @@ package 'curl'
 
 execute 'install-nvm' do 
   command <<-eof
-    echo "'source ~/.nvm/nvm.sh' >> /home/vagrant/.profile"
+    echo 'source ~/.nvm/nvm.sh' >> /home/vagrant/.profile
   eof
   action :nothing
 end
