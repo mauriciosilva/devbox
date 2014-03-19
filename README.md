@@ -1,13 +1,5 @@
 # devbox cookbook
 
-# Requirements
+recipes to build out local vagrant environments.
 
-# Usage
-
-# Attributes
-
-# Recipes
-
-# Author
-
-Author:: YOUR_NAME (<YOUR_EMAIL>)
+more details to follow...
