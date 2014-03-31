@@ -11,9 +11,10 @@ package 'curl'
 
 execute 'install-nvm' do 
   command <<-eof
-    echo 'source ~/.nvm/nvm.sh' >> /home/vagrant/.profile
+    echo 'source /home/vagrant/.nvm/nvm.sh' >> /home/vagrant/.profile
+    echo 'source /home/vagrant/.nvm/nvm.sh' >> /etc/profile
   eof
-  action :nothing
+#  action :nothing
 end
 
 git nvm_location  do
@@ -27,4 +28,5 @@ git nvm_location  do
 
   not_if { ::File.exists?(nvm_location) }
 end
+
 
