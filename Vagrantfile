@@ -4,21 +4,12 @@
 
 Vagrant.configure("2") do |config|
 
-  ## require needed plugins
-  %w[
-    vagrant-berkshelf
-    vagrant-omnibus
-    vagrant-cachier
-  ].each { | plugin |
-    Vagrant.require_plugin plugin
-  }
-
   config.omnibus.chef_version = :latest
-  config.vm.hostname = "go-env-berkshelf"
+  config.vm.hostname = "devbox"
 #  config.ssh.private_key_path = "~/.ssh/id_rsa"
 #  config.ssh.forward_agent = true
 
-  config.vm.box = "devbox-vagrant"
+  config.vm.box = "devbox"
 
   config.vm.box_url = "https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-13.04_provisionerless.box"
 
