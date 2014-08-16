@@ -1,43 +1,40 @@
-include_recipe 'apt'
-include_recipe 'build-essential'
-include_recipe 'git'
-
-node.set[:app_name][:git_repository] = "https://github.com/creationix/nvm.git"
-node.set[:app_name][:git_revision] = "master"
-
-nvm_location = node['nvm']['install_location']
+%w[
+  apt
+  build-essential
+  git].each{ |recipe | include_recipe recipe }
 
 package 'curl'
 
-execute 'source-nvm' do 
-  command <<-eof
-    echo 'source /opt/nvm/nvm.sh' >> /etc/profile
-  eof
-  notifies :run, 'execute[install-node-ver-]'
-#  action :nothing
-end
+node.set['app_name']['git_repository'] = "https://github.com/creationix/nvm.git"
+node.set['app_name']['git_revision']   = "master"
+node.set['nvm']['install_location']    = '/opt/nvm'
+node.set['node']['version']            = 'v0.10.26'
 
-Chef::Log.info "ver is #{node['node']['version']}"
-execute "install-node-ver-" do 
-  Chef::Log.info "install a node version"
-  command <<-eof
-    source /etc/profile
-    nvm install v0.10.24
-  eof
-  action :nothing
-end
+nvm_location = node['nvm']['install_location']
 
-Chef::Log.info " *** does it #{::File.exists?(nvm_location) }"
+Chef::Log.debug " #{nvm_location} already exists? #{::File.exists?(nvm_location) }"
 
 git nvm_location  do
-  user 'vagrant'
-  group 'vagrant'
+  user 'root'
+  group 'root'
   repository node[:app_name][:git_repository]
   revision node[:app_name][:git_revision]
   destination nvm_location
   action :sync
-  notifies :run, 'execute[source-nvm]'
   not_if { ::File.exists?(nvm_location) }
+end
+
+template '/etc/profile.d/nvm.sh' do
+  source 'nvm.sh.erb'
+  mode 0755
+end
+
+bash "install_a_version_of_node" do 
+  code  <<-EOF
+    source /etc/profile.d/nvm.sh
+    nvm install 0.10.26
+  EOF
+  only_if { ::File.exists?('/opt/nvm/nvm.sh') }
 end
 
 

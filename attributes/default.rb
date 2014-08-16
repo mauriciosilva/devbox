@@ -1,4 +1,4 @@
-node.set['node']['version'] = '0.10.26'
+
 node.set['vim']['install_dir']                        = '/etc/vim'
 node.set['vim']['config_file_name']                   = 'vimrc.local'
 node.set['vim']['plugins']                            = [
@@ -8,7 +8,7 @@ node.set['vim']['plugins']                            = [
   "https://github.com/godlygeek/tabular.git",
   "https://github.com/jnwhiteh/vim-golang.git"
 ]
+
 node.set['java']['jdk_version'] = '7'
 
-node.set['nvm']['install_location'] = '/opt/nvm'
 

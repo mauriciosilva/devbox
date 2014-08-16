@@ -8,3 +8,5 @@
 #
 
 
+include_recipe 'devbox::vim'
+
